@@ -1,0 +1,240 @@
+\documentclass{ctexart}
+\setlength{\parindent}{0em}%首行缩进0
+%用法:
+%\SupterChat[<是否在舰>]{<粉丝牌名称>}{<粉丝牌等级>}{<ID>}{<电池数量>}{<SC正文>} 详细介绍见下文
+\setmainfont{HarmonyOS Sans SC}
+\usepackage{tcolorbox}
+\tcbuselibrary{breakable}
+\tcbuselibrary{skins}
+\usepackage{xcolor}
+
+\definecolor{maincolor}{HTML}{ffffff} %纯白色,正文颜色
+\definecolor{moneycolor}{HTML}{4c4b4f}%电池颜色
+\definecolor{fensikuangyi}{HTML}{8d9494}%最内层粉丝框
+\definecolor{fensikuanger}{HTML}{f6efa9}%最外层粉丝框
+\definecolor{fensikuangsan}{HTML}{fbf7d4}%等级外层粉丝框
+\CJKsetecglue{\discretionary{\mbox{}}{}{}}
+\pagestyle{empty}
+\newcommand{\SuperChat}[7][0]{%
+\ifcase #1
+\definecolor{supernamecolor}{HTML}{808888}
+\or
+\definecolor{supernamecolor}{HTML}{35d9f4}
+\or
+\definecolor{supernamecolor}{HTML}{e895f2}
+\or
+\definecolor{supernamecolor}{HTML}{ff7c28}
+\else
+笨!\definecolor{supernamecolor}{HTML}{000000}
+\fi
+\ifnum #4>36%对粉丝牌等级的检测,控制粉丝牌左右部分颜色
+\definecolor{lcolor}{HTML}{ff6913}
+\definecolor{rcolor}{HTML}{ffad5e}
+\else \ifnum #4>32
+\definecolor{lcolor}{HTML}{820d2e}
+\definecolor{rcolor}{HTML}{c55c8a}
+\else \ifnum #4>28
+\definecolor{lcolor}{HTML}{351261}
+\definecolor{rcolor}{HTML}{7a6dca}
+\else \ifnum #4>24
+\definecolor{lcolor}{HTML}{07164d}
+\definecolor{rcolor}{HTML}{6686ee}
+\else \ifnum #4>20
+\definecolor{lcolor}{HTML}{1b554c}
+\definecolor{rcolor}{HTML}{509b91}
+\else \ifnum #4>16
+\definecolor{lcolor}{HTML}{c79d24}
+\definecolor{rcolor}{HTML}{c79d24}
+\else \ifnum #4>12
+\definecolor{lcolor}{HTML}{be6686}
+\definecolor{rcolor}{HTML}{be6686}
+\else \ifnum #4>8
+\definecolor{lcolor}{HTML}{8d7ca6}
+\definecolor{rcolor}{HTML}{8d7ca6}
+\else \ifnum #4>4
+\definecolor{lcolor}{HTML}{5d7b9e}
+\definecolor{rcolor}{HTML}{5d7b9e}
+\else \ifnum #4>0
+\definecolor{lcolor}{HTML}{5c968e}
+\definecolor{rcolor}{HTML}{5c968e}
+\else
+\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi
+\ifnum #6>10000%对价格的检测,控制SC价格上下部分颜色
+\definecolor{SCu}{HTML}{ffd8d8}
+\definecolor{SCd}{HTML}{ab1a32}
+\else \ifnum #6>5000
+\definecolor{SCu}{HTML}{ffe7e4}
+\definecolor{SCd}{HTML}{e54d4d}
+\else \ifnum #6>1000
+\definecolor{SCu}{HTML}{ffead2}
+\definecolor{SCd}{HTML}{e09443}
+\else \ifnum #6>500
+\definecolor{SCu}{HTML}{fff1c5}
+\definecolor{SCd}{HTML}{e2b52b}
+\else \ifnum #6>300
+\definecolor{SCu}{HTML}{dbfffd}
+\definecolor{SCd}{HTML}{427d9e}
+\else
+\definecolor{SCu}{HTML}{edf5ff}
+\definecolor{SCd}{HTML}{2a60b2}
+\fi\fi\fi\fi\fi
+\begin{minipage}{20em}%总体的对tcb的限制
+    \begin{tcolorbox}[%最外层单个边框
+        colback     =maincolor,
+        colframe    =SCd,
+        left        =-3.1pt,
+        right       =-3.1pt,
+        bottom      =-3.1pt,
+        top         =-3pt,
+        leftrule    =1pt,
+        rightrule   =1pt,
+        bottomrule  =1pt,
+        toprule     =1pt,
+        arc         =3.1pt
+        ]
+        \begin{tcolorbox}[%正文
+            title={
+                \ifnum #4>0%粉丝牌等级是否>1
+                \vspace{-0.4em}\hspace*{0.4em}%上半部分的设置
+                \parbox{4.25em}{%粉丝牌整体的封装
+                \vspace{-0.3em}\begin{tcolorbox}[%粉丝牌最外层边框
+                    colframe=fensikuanger,
+                    left        =-8pt,
+                    right       =-50pt,
+                    bottom      =-11.1pt,
+                    top         =-2.8pt,
+                    leftrule    =0.3pt,
+                    rightrule   =0.3pt,
+                    bottomrule  =0.3pt,
+                    toprule     =0.3pt,
+                    arc=0.2pt
+                ]
+                    \hspace*{0.5em}\parbox{3.3em}{
+                    \begin{tcolorbox}[%粉丝牌左半部分
+                        enhanced,
+                        interior style={
+                        left color=lcolor,
+                        right color=rcolor},
+                        colframe=fensikuangyi,
+                        left        =-4pt,
+                        right       =0pt,
+                        bottom      =-2pt,
+                        top         =-2pt,
+                        leftrule    =0.3pt,
+                        rightrule   =0pt,
+                        bottomrule  =0.3pt,
+                        toprule     =0.3pt,
+                        arc=0.2pt
+                    ]
+                        \parbox{0.73em}{\hspace*{0.73em}}\parbox{2.3em}{\zihao{6}\centering\textcolor{maincolor}{#3}}\parbox{0.1em}{\hspace*{0.1em}}\zihao{6}\vphantom{\textcolor{maincolor}{小山猪}}
+                    \end{tcolorbox}}
+                    \ifcase #2%检测在舰信息
+                    \hspace*{-4.2em}\parbox{4em}{\parbox{0.5em}{\vspace{-0.8em}\hspace{0.5em}}}\hspace*{-0.2em}%
+                    \or
+                    \hspace*{-4.2em}\parbox{4em}{\parbox{0.5em}{\vspace{-0.8em}\includegraphics[height=1.40em]{./舰长图标/舰长1.png}}}\hspace*{-0.2em}%
+                    \or
+                    \hspace*{-4.2em}\parbox{4em}{\parbox{0.5em}{\vspace{-0.8em}\includegraphics[height=1.40em]{./舰长图标/提督1.png}}}\hspace*{-0.4em}
+                    \or
+                    \hspace*{-4.2em}\parbox{4em}{\parbox{0.5em}{\vspace{-0.8em}\includegraphics[height=1.40em]{./舰长图标/总督1.png}}}\hspace*{-0.4em}
+                    \or
+                    \hspace*{-4.2em}\parbox{4em}{\parbox{0.5em}{\vspace{-0.8em}\includegraphics[height=1.40em]{./舰长图标/舰长2.png}}}\hspace*{-0.2em}%
+                    \definecolor{supernamecolor}{HTML}{35d9f4}%
+                    \or
+                    \hspace*{-4.2em}\parbox{4em}{\parbox{0.5em}{\vspace{-0.8em}\includegraphics[height=1.40em]{./舰长图标/提督2.png}}}\hspace*{-0.4em}
+                    \or
+                    \hspace*{-4.2em}\parbox{4em}{\parbox{0.5em}{\vspace{-0.8em}\includegraphics[height=1.40em]{./舰长图标/总督2.png}}}\hspace*{-0.4em}
+                    \or
+                    \hspace*{-4.2em}\parbox{4em}{\parbox{0.5em}{\vspace{-0.8em}\includegraphics[height=1.40em]{./舰长图标/舰长-last.png}}}\hspace*{-0.2em}%
+                    \definecolor{supernamecolor}{HTML}{35d9f4}%
+                    \or
+                    \hspace*{-4.2em}\parbox{4em}{\parbox{0.5em}{\vspace{-0.8em}\includegraphics[height=1.40em]{./舰长图标/提督-last.png}}}\hspace*{-0.4em}
+                    \or
+                    \hspace*{-4.2em}\parbox{4em}{\parbox{0.5em}{\vspace{-0.8em}\includegraphics[height=1.40em]{./舰长图标/总督-last.png}}}\hspace*{-0.4em}
+                    \else 笨!\fi%左半部分结束
+                    \parbox{1em}{\begin{tcolorbox}[%右半部分
+                        colback=maincolor,
+                        colframe=fensikuangsan,
+                        left        =0pt,
+                        right       =0pt,
+                        bottom      =-1.7pt,
+                        top         =-1.7pt,
+                        leftrule    =0pt,
+                        rightrule   =0.3pt,
+                        bottomrule  =0.3pt,
+                        toprule     =0.3pt,
+                        arc         =0.2pt
+                    ]
+                        \zihao{6}\centering\hspace*{-0.4em} #4\vphantom{\textcolor{maincolor}{小山猪}}
+                    \end{tcolorbox}}%右半部分结束
+                \end{tcolorbox}}%最外层边框结束
+                \hspace{0.3em}\zihao{-4}\textcolor{supernamecolor}{\textbf{#5}}
+                \else
+                \hspace{0.2em}\zihao{-4}\textcolor{supernamecolor}{\textbf{#5}}\vspace{0.5em}
+                \fi
+                \hfill\textcolor{moneycolor}{#6\mbox{}电池}}\vspace{-0.7em},
+            colback     =SCd,
+            colframe    =SCu,
+            left        =4pt,
+            right       =4pt,
+            bottom      =3pt,
+            top         =3pt,
+            leftrule    =-0.2pt,
+            rightrule   =-0.2pt,
+            bottomrule  =-0.2pt,
+            toprule     =-0.2pt,
+            arc         =3.1pt
+            ]
+            \textcolor{maincolor}{\zihao{-5}#7}
+        \end{tcolorbox}%正文结束
+    \end{tcolorbox}%最外层边框结束
+\end{minipage}%总体封装结束
+}
+\begin{document}
+%用法:
+%\SupterChat[<是否在舰>]{<粉丝牌在舰信息>}{<粉丝牌名称>}{<粉丝牌等级>}{<ID>}{<电池数量>}{<SC正文>}
+
+%其中, <是否在舰> 指的是当前直播间的舰队消息,它会影响到ID颜色.具体参数为: 0 未在舰 1 舰长 2 提督 3 总督.默认为0,即未在舰
+%<粉丝牌在舰信息> 指的是粉丝团所在直播间的舰队消息,它会影响到粉丝团前面是舰长标,提督标,抑或是总督标.特别地,B站主播超过1000舰还会换一个标,所以会有两组(第三组是我乱加的,没有实际作用):
+%  0 未在舰 1 非千舰舰长 2 非千舰提督 3 非千舰总督 4 千舰舰长 5 千舰提督 6 千舰总督
+
+\SuperChat[0]{0}{搓澡球}{1}{测试一下}{300}{月兮兮今天涨粉了吗}
+\SuperChat[1]{0}{搓澡球}{2}{测试一下}{300}{月兮兮今天涨粉了吗}
+\SuperChat[2]{0}{搓澡球}{3}{测试一下}{300}{月兮兮今天涨粉了吗}
+\SuperChat[3]{0}{搓澡球}{4}{测试一下}{300}{月兮兮今天涨粉了吗}
+\SuperChat[0]{1}{搓澡球}{5}{测试一下}{300}{月兮兮今天涨粉了吗}
+\SuperChat[1]{1}{搓澡球}{6}{测试一下}{300}{月兮兮今天涨粉了吗}
+\SuperChat[2]{1}{搓澡球}{7}{测试一下}{500}{月兮兮今天涨粉了吗}
+\SuperChat[3]{1}{搓澡球}{8}{测试一下}{500}{月兮兮今天涨粉了吗}
+\SuperChat[0]{2}{搓澡球}{9}{测试一下}{500}{月兮兮今天涨粉了吗}
+\SuperChat[1]{2}{搓澡球}{10}{测试一下}{500}{月兮兮今天涨粉了吗}
+\SuperChat[2]{2}{搓澡球}{11}{测试一下}{500}{月兮兮今天涨粉了吗}
+\SuperChat[3]{2}{搓澡球}{12}{测试一下}{500}{月兮兮今天涨粉了吗}
+\SuperChat[0]{3}{搓澡球}{13}{测试一下}{1000}{月兮兮今天涨粉了吗}
+\SuperChat[1]{3}{搓澡球}{14}{测试一下}{1000}{月兮兮今天涨粉了吗}
+\SuperChat[2]{3}{搓澡球}{15}{测试一下}{1000}{月兮兮今天涨粉了吗}
+\SuperChat[3]{3}{搓澡球}{16}{测试一下}{1000}{月兮兮今天涨粉了吗}
+\SuperChat[0]{4}{搓澡球}{17}{测试一下}{1000}{月兮兮今天涨粉了吗}
+\SuperChat[1]{4}{搓澡球}{18}{测试一下}{1000}{月兮兮今天涨粉了吗}
+\SuperChat[2]{4}{搓澡球}{19}{测试一下}{5000}{月兮兮今天涨粉了吗}
+\SuperChat[3]{4}{搓澡球}{20}{测试一下}{5000}{月兮兮今天涨粉了吗}
+\SuperChat[0]{5}{搓澡球}{21}{测试一下}{5000}{月兮兮今天涨粉了吗}
+\SuperChat[1]{5}{搓澡球}{22}{测试一下}{5000}{月兮兮今天涨粉了吗}
+\SuperChat[2]{5}{搓澡球}{23}{测试一下}{5000}{月兮兮今天涨粉了吗}
+\SuperChat[3]{5}{搓澡球}{24}{测试一下}{5000}{月兮兮今天涨粉了吗}
+\SuperChat[0]{6}{搓澡球}{25}{测试一下}{10000}{月兮兮今天涨粉了吗}
+\SuperChat[1]{6}{搓澡球}{26}{测试一下}{10000}{月兮兮今天涨粉了吗}
+\SuperChat[2]{6}{搓澡球}{27}{测试一下}{10000}{月兮兮今天涨粉了吗}
+\SuperChat[3]{6}{搓澡球}{28}{测试一下}{10000}{月兮兮今天涨粉了吗}
+\SuperChat[0]{7}{搓澡球}{29}{测试一下}{10000}{月兮兮今天涨粉了吗}
+\SuperChat[1]{7}{搓澡球}{30}{测试一下}{10000}{月兮兮今天涨粉了吗}
+\SuperChat[2]{7}{搓澡球}{31}{测试一下}{20000}{月兮兮今天涨粉了吗}
+\SuperChat[3]{7}{搓澡球}{32}{测试一下}{20000}{月兮兮今天涨粉了吗}
+\SuperChat[0]{8}{搓澡球}{33}{测试一下}{20000}{月兮兮今天涨粉了吗}
+\SuperChat[1]{8}{搓澡球}{34}{测试一下}{20000}{月兮兮今天涨粉了吗}
+\SuperChat[2]{8}{搓澡球}{35}{测试一下}{20000}{月兮兮今天涨粉了吗}
+\SuperChat[3]{8}{搓澡球}{36}{测试一下}{20000}{月兮兮今天涨粉了吗}
+\SuperChat[0]{9}{搓澡球}{37}{测试一下}{20000}{月兮兮今天涨粉了吗}
+\SuperChat[1]{9}{搓澡球}{38}{测试一下}{20000}{月兮兮今天涨粉了吗}
+\SuperChat[2]{9}{搓澡球}{39}{测试一下}{20000}{月兮兮今天涨粉了吗}
+\SuperChat[3]{9}{搓澡球}{40}{测试一下}{20000}{月兮兮今天涨粉了吗}
+\end{document}
